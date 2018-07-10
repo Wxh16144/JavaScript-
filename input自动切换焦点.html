@@ -44,9 +44,10 @@
                 var form = target.form;
                 console.warn(form.elements) //输入框元素
                 for (var i = 0, len = form.elements.length; i < len; i++) {
-                    if (form.elements[i + 1]) {
-                        if (form.elements[i + 1]) {
-                            form.elements[i + 1].focus();
+                    var index=i+1;
+                    if (form.elements[index) {
+                        if (form.elements[index]) {
+                            form.elements[index].focus();
                         }
                     }
                 }
