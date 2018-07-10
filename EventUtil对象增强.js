@@ -89,6 +89,18 @@ var EventUtil = {
             return evnet.keyCode; //IE 8- 和opera浏览器
         }
     },
-
-
+    //添加操作剪切板
+    //获取值
+    getClipboardText: function (event) {
+        var clipboardData = (event.clipboardData || window.clipboardData);
+        return clipboardData.getData("text");
+    },
+    //设置值
+    setClipboardText: function (event, value) {
+        if (event, clipboardData) {
+            return event.clipboardData.setData('text/plain', value);
+        } else if (window.clipboardData) {
+            return Window.clipboardData.setData('text/plain', value);
+        }
+    }
 }
