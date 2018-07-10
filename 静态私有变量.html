@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>静态私有变量</title>
+</head>
+
+<body>
+    <script>
+        (function () {
+            let privateValue = 10;
+
+            function privateFunction() {
+                console.log(privateValue)
+                return false;
+            }
+            MyObject = function () {
+
+            }
+            //变成全局的属性了  window对象里面  严格模式会报错
+            MyObject.prototype.publicMethod = function () {
+                privateValue++;
+                return privateFunction();
+            }
+        }())
+
+        // (function () {
+        //     a = 10
+        // }())
+        // alert(a) //=>10;
+    </script>
+</body>
+
+</html>

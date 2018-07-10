@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>h5事件</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        body {
+            /* overflow: hidden; */
+        }
+
+        ul {
+            position: relative;
+            display: none;
+            width: 120px;
+            box-shadow: 0 0 20px 1px rgba(0, 0, 0, .1);
+            overflow: hidden;
+        }
+
+        ul li a {
+            color: black;
+            text-indent: .3rem;
+            display: inline-block;
+            width: 100%;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: default;
+            transition: 200ms;
+        }
+
+        ul li a:hover {
+            text-indent: .6rem;
+            color: white;
+            background: linear-gradient(90deg, #360033, #0b8793)
+            /* background-color: black; */
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>
+            <a href="http://www.baidu.com" target="_black">百度一下</a>
+        </li>
+        <li>
+            <a href="http://www.taobao.com" target="_black">淘宝</a>
+        </li>
+        <li>
+            <a href="http://www.wxhboy.com" target="_black">个人网站</a>
+        </li>
+    </ul>
+</body>
+<script src="./EventUtil对象增强.js"></script>
+<script>
+    //获取鼠标位置
+    //鼠标经移动事件 执行多次
+    EventUtil.addHandler(window, 'contextmenu', function (event) {
+        event = EventUtil.getEvent(event);
+        //阻止默认行为
+        EventUtil.preventDefault(event);
+        let ul = document.querySelector('ul');
+        ul.style.display = 'block';
+
+        let {
+            clientWidth: elw,
+            clientHeight: elh
+        } = document.documentElement;
+        let {
+            offsetWidth: w,
+            offsetHeight: h
+        } = ul;
+        let {
+            clientX: x,
+            clientY: y
+        } = event;
+        // console.log(elw, elh, w, h, x, y)
+        let left = w + x > elw ? x - w : x;
+        let top = h + y > elh ? y - h : y;
+        // console.error(left, top)
+        ul.style.left = left + 'px';
+        ul.style.top = top + 'px';
+    });
+    EventUtil.addHandler(document, 'click', function (event) {
+        event = EventUtil.getEvent(event);
+        let ul = document.querySelector('ul');
+        ul.style.display = 'none';
+    });
+
+    //退出事件
+    // EventUtil.addHandler(window, 'beforeunload', function (event) {
+    //     event = EventUtil.getEvent(event);
+    //     // console.log(event)
+    //     event.returnValue = '';
+    //     return
+    // });
+
+
+
+
+
+    (function () {
+        var showCount = 0;
+        EventUtil.addHandler(window, 'load', () => {
+            console.log('触发了onload事件')
+        })
+
+        EventUtil.addHandler(window, 'pageshow', (event) => {
+            event = EventUtil.getEvent(event);
+            //persisted 为 true 表示保存在 bfcache 中 
+            // https://blog.csdn.net/seminelee/article/details/52383991 
+            // 这篇文章有提起  bfcache  
+            console.log(event)
+            showCount++
+            console.log('show 触发了' + showCount + '次')
+        })
+    }())
+</script>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>鼠标事件</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 160px;
+            height: 160px;
+            margin: 10px;
+            background-color: hsla(34, 100%, 50%, .4);
+            text-align: center;
+            /* padding: 50px 0 0 0; */
+            box-sizing: border-box;
+            float: left;
+        }
+
+        div::after {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            content: attr(data);
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            /* text-decoration: none; */
+        }
+    </style>
+</head>
+
+<body>
+    <a href="http://www.baidu.com" title="单击打开百度" target="_black">点我试试看,我阻止了默认事件</a>
+    <div data=" mouseenter事件"></div>
+    <div data=" mousemove事件"></div>
+    <div data=" mouseleave事件"></div>
+    <div data=" mouseout事件"></div>
+    <div data=" mousedown事件"></div>
+    <div data=" mouseup事件"></div>
+    <div data=" mouseover事件"></div>
+    <div data=" 检测鼠标那个按钮单击"></div>
+
+
+</body>
+<script src="./EventUtil对象增强.js"></script>
+<script>
+    var getColor = function () {
+        return '#' + Math.random().toString(16).substring(2, 8);
+    }
+    //a标签阻止默认事件
+    EventUtil.addHandler(document.querySelector('a'), 'click', function (event) {
+        //阻止默认行为
+        EventUtil.preventDefault(event);
+
+    })
+
+
+    var div = document.querySelectorAll('div');
+    //鼠标进入元素 元素执行一次事件
+    EventUtil.addHandler(div[0], 'mouseenter', function (event) {
+        element = EventUtil.getTargt(event);
+        element.style.backgroundColor = getColor();
+        //console.log('mouseenter事件')
+    })
+
+    //鼠标经元素移动事件 执行多次
+    EventUtil.addHandler(div[1], 'mousemove', function (event) {
+        element = EventUtil.getTargt(event);
+        element.style.backgroundColor = getColor();
+        EventUtil.stopPropagation(event); //停止
+        //console.log('mousemove事件')
+    })
+    //鼠标从元素身上移出事件
+    EventUtil.addHandler(div[2], 'mouseleave', function (event) {
+        element = EventUtil.getTargt(event);
+        element.style.backgroundColor = getColor();
+        //console.log('mouseleave事件')
+    })
+    //鼠标从一个元素内部移出到另外一个元素事件
+    EventUtil.addHandler(div[3], 'mouseout', function (event) {
+        element = EventUtil.getTargt(event);
+        element.style.backgroundColor = getColor();
+        var relatedTarget = EventUtil.getRelatedTarget(event);
+        console.log('Moused out of:', element);
+        console.log(' to ', relatedTarget);
+        //console.log('mouseout事件')
+    })
+    //鼠标按下触发事件
+    EventUtil.addHandler(div[4], 'mousedown', function (event) {
+        element = EventUtil.getTargt(event);
+        element.style.backgroundColor = getColor();
+        // console.log('mousedown事件')
+    })
+
+    //鼠标弹起来事件
+    EventUtil.addHandler(div[5], 'mouseup', function (event) {
+        element = EventUtil.getTargt(event);
+        element.style.backgroundColor = getColor();
+        //console.log('mouseup事件')
+    })
+
+    //从一个元素移出到另外一个元素
+    EventUtil.addHandler(div[6], 'mouseover', function (event) {
+        element = EventUtil.getTargt(event);
+        element.style.backgroundColor = getColor();
+        // console.log(event);  
+        var relatedTarget = EventUtil.getRelatedTarget(event);
+        console.log('Moused over of:', relatedTarget);
+        console.log(' to ', element);
+        //console.log('mouseover事件')
+    })
+
+    //检查button按钮
+    EventUtil.addHandler(div[7], 'mousedown', function (event) {
+        element = EventUtil.getTargt(event);
+        element.style.backgroundColor = getColor();
+        // console.log(event)
+        console.log(EventUtil.getButton(event))
+
+    })
+
+    //获取鼠标位置
+    //鼠标经移动事件 执行多次
+    EventUtil.addHandler(window, 'mousemove', function (event) {
+        element = EventUtil.getTargt(event);
+        //console.log(event)
+        //console.error('eventX:' + event.clientX, 'eventY:' + event.clientY )
+        //console.warn('pageX:' + event.pageX, 'pageY:' + event.pageY )
+    });
+
+
+
+   
+</script>
+
+</html>

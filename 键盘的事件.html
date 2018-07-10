@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>键盘事件</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            height: 30px;
+            width: 350px;
+            margin: 2px 5px;
+            border-radius: 5%;
+            border: 1px solid pink;
+            text-indent: .2rem;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <textarea name="" id="" cols="50" rows="3"></textarea>
+    <input type="text" placeholder="触发键盘keypresss事件">
+    <textarea name="" id="" cols="50" rows="3"></textarea>
+    <!-- <input type="text" placeholder="触发键盘keypresss事件"> -->
+</body>
+<script src="./EventUtil对象增强.js"></script>
+<script>
+    var textBox = document.querySelectorAll('textarea');
+    EventUtil.addHandler(textBox[0], 'keyup', function (event) {
+        event = EventUtil.getEvent(event);
+        console.log(event.keyCode);
+    })
+    var inputObj = document.querySelectorAll('input');
+    EventUtil.addHandler(inputObj[0], 'keypress', function (event) {
+        event = EventUtil.getEvent(event);
+        // console.log(event)
+        console.log(EventUtil.getCharCode(event));
+    })
+
+
+    EventUtil.addHandler(textBox[1], 'textInput', function (event) {
+        event = EventUtil.getEvent(event);
+        console.log(event.data);
+    })
+</script>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>设备事件</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .ios {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            background-color: hsl(270, 100%, 50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ios">
+
+    </div>
+</body>
+<script src="./EventUtil对象增强.js"></script>
+<script>
+    // (function () {
+    //     //ios设备事件
+    //     EventUtil.addHandler(window, 'load', function () {
+    //         var div = document.querySelector('.ios');
+    //         //console.log(window)
+    //         div.innerHTML = 'Current orientation is ' + window.orientation;
+
+    //         EventUtil.addHandler(window, 'orientationchange', function () {
+    //             var div = document.querySelector('.ios');
+    //             console.log(window)
+    //             div.innerHTML = 'Current orientation is ' + window.orientation;
+    //         })
+    //     })
+    // }());
+
+
+    (function () {
+        //deviceorientation 事件
+        EventUtil.addHandler(window, 'deviceorientation', function (event) {
+            event = EventUtil.getEvent(event);
+            // alpha Z轴 左右旋转
+            // beta X轴 前后旋转
+            // gamma Y轴 扭转设备
+
+            // compassCalibrated 布尔值 表示设备有没有被指南针校准过
+            var div = document.querySelector('.ios');
+            div.innerHTML ="";
+        })
+    }());
+
+
+
+    
+</script>
+
+</html>

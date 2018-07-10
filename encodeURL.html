@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>encodeURL</title>
+</head>
+
+<body>
+    <script>
+        let str = 'http://www.baidu.com?name=吴 小 红 & age=19&hello=World';
+        console.log('str----', str)
+        console.log('decodeURI----', encodeURI(str))
+        console.log('encodeURIComponent----', encodeURIComponent(str))
+        console.log('decodeURI=>decodeURI----', decodeURI(encodeURI(str)));
+        console.log('decodeURIComponent=>encodeURI----', decodeURIComponent(encodeURI(str)));
+        console.log('decodeURI=>encodeURIComponent----', decodeURI(encodeURIComponent(str)));
+        console.log('decodeURIComponent=>encodeURIComponent----', decodeURIComponent(encodeURIComponent(str)));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>递归</title>
+</head>
+
+<body>
+    <script>
+        // let add = function (value) {
+        //     if (value <= 1) {
+        //         return 1;
+        //     }
+        //     return value += add(value - 1);  //这里存在紧密的耦合
+        // }
+        // let myadd=add;
+        // add=null; //这样就报错了   耦合紧密
+        // let a = myadd(5);
+        // console.log(a);
+
+
+
+        let add = function (value) {
+            if (value <= 1) {
+                return 1;
+            }
+            return value += arguments.callee(value - 1); //这里使用 arguments.callee
+        }
+        let myadd = add;
+        add = null; //这样就不会报错了   低耦合
+        let a = myadd(5);
+        console.log(a);
+
+
+        // let fn=function(){
+        //     alert(this.length)
+        // }
+        // let obj={
+        //     name:'wxh',
+        //     length:30
+        // }
+        // obj.fn=fn;
+        // obj.fn();
+        let myfu = function (fn) {
+            let arr=arguments
+            // console.log(arr.callee.caller)
+            console.log(arr.callee)
+        }
+        myfu()
+    </script>
+</body>
+
+</html>

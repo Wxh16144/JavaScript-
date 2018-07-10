@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>私有变量</title>
+</head>
+
+<body>
+    <script>
+        // function MyObject() {
+
+        //     let privateValue = 10;
+
+        //     function privateFunction() {
+        //         console.log(privateValue);
+        //         return false;
+        //     }
+        //     this.publicMethod = function () {
+        //         privateValue++;
+        //         return privateFunction();
+        //     }
+        // }
+        // let my = new MyObject();
+        // my.publicMethod();
+        // console.dir(my)
+
+
+        function Person(name) {
+
+            this.getName = function () {
+                return name;
+            }
+            this.setName = function (value) {
+                name = value;
+            }
+        }
+
+        let P1 = new Person('吴小红');
+        console.dir(P1)
+        console.log(P1.getName());
+        P1.setName('吴大龙');
+        console.log(P1.getName());
+
+        let P2 = new Person('张三');
+        P1.setName('张大仙');
+        console.log(P2.getName())
+    </script>
+</body>
+
+</html>

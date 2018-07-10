@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>defineproperty</title>
+</head>
+
+<body>
+    <script>
+        let obj = {
+            name: '吴小红',
+            age: 21,
+            hi: function () {
+                console.log(`今年${this.age}岁的${this.name}你好呀`)
+            }
+        }
+        Object.defineProperty(obj, 'name', {
+            writable: false, //只读 不可编辑
+            enumerable: false, //不能被遍历
+            value: '吴大龙'
+        })
+        obj.name = "吴小绿" //编辑无效
+        obj.hi();
+        for (let item in obj) {
+            console.log(item); //这里遍历不到name属性
+        }
+        let {
+            hi
+        } = obj
+        let obj1 = {
+            name: '张三',
+            age: 16
+        }
+        Object.defineProperty(obj1, 'age', {
+            configurable: false //设置年龄不能被编辑
+        })
+        delete obj1.age //这里删除了年龄 读下面不会影响
+        obj1.hi = hi;
+        obj1.hi();
+
+
+
+        console.log('------defineProperties-------');
+        let obj2 = {}
+        Object.defineProperties(obj2, {
+            name: {
+                enumerable: true, //默认都是false
+                writable: true,
+                value: '我是老大'
+            },
+            age: {
+                enumerable: true, //默认都是false
+                value: NaN
+            },
+            hi: {
+                enumerable: true, //默认都是false
+                get: function () {
+                    return this.name;
+                },
+                set: function (newValue) {
+                    console.error(newValue)
+                    if (newValue > 100) {
+                        this.age = newValue;
+                        this.name = '傻子';
+                    }
+                }
+            }
+        })
+
+        console.dir(obj2) //对象
+        console.log(obj2.hi) //get
+        console.log(obj2.hi = 101); //set
+        console.log(obj2.name); //修改了name
+        for (let item in obj2) {
+            console.warn(item)
+        }
+        //读取属性的特性
+        console.log('-----getOwnPropertyDescriptor-----')
+        console.log('--数据属性↓↓↓↓↓↓↓↓--')
+        let res = Object.getOwnPropertyDescriptor(obj2, 'name');
+        console.log(res.configurable); //false
+        console.log(res.writable); //true
+        console.log(res.enumerable); //true
+        console.log(res.value); //傻子
+        console.log('--对象属性↓↓↓↓↓↓↓↓--')
+        let res1 = Object.getOwnPropertyDescriptor(obj2, 'hi');
+        console.log(res1.configurable); //false
+        console.log(res1.enumerable); //true
+        console.log(res1.value); //undefined
+        console.log(res1.get); //function
+        console.log(res1.set) //function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(function getAnswer()
+{
+    
+        
+      
+        document.all.hidden1.value = 96;
+        document.getElementById("b_subresult").click();
+  
+})()
+
+
+
+
+    </script>
+</body>
+
+</html>

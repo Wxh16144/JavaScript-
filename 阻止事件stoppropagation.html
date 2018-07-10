@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>stopPropagation</title>
+</head>
+
+<body>
+    <button id="btn">点击按钮</button>
+
+</body>
+<script>
+    //事件冒泡
+    let btn = document.getElementById('btn');
+    btn.onclick = function (event) {
+        alert('btn alert');
+        // event.stopPropagation();
+        console.log(event.eventPhase); //2
+
+    }
+    document.body.onclick = function () {
+        alert('body alert');
+        console.log(event.eventPhase); //3
+    }
+
+
+    //事件捕获
+    // btn.addEventListener('click', function (event) {
+    //     alert('btn alert');
+    //     console.log(event.eventPhase); //2
+
+    // },true)
+    // document.body.addEventListener('click', function (event) {
+    //     alert('body alert');
+    //     console.log(event.eventPhase); // 1
+    // },true)
+</script>
+
+</html>

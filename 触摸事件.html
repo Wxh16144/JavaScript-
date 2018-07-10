@@ -1,0 +1,91 @@
+<html lang="en"><head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>触摸事件</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+    
+            body {
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+    
+            }
+    
+            .div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 50px;
+                background-color: hsl(300, 100%, 50%);
+            }
+    
+            span {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 2px 0;
+                background-color: rgba(126, 60, 2, .2);
+                margin: 5px 0;
+            }
+    
+            .box {
+                width: 100%;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div class="div"></div>
+        <div class="box">
+            <span></span>
+            <span></span>
+        </div>
+    
+    <script src="./EventUtil对象增强.js"></script>
+    <script>
+        let span = document.querySelectorAll('span')
+    
+        function handleTouchEvent(event) {
+            //console.log(event);
+            //只跟踪一次触摸
+            if (event.touches.length == 1) {
+                let output = document.querySelector('.div');
+                switch (event.type) {
+                    case 'touchstart':
+                        output.innerHTML = "Touch started (" + event.touches[0].clientX + "," + event.touches[0].clientY +
+                            ")";
+                        span[0].innerHTML = '触摸事件:' + (new Date().getTime());
+                        break;
+                    case 'touchend':
+                        output.innerHTML = "Touch ended (" + event.changedTouches[0].clientX + "," + event.changedTouches[0]
+                            .clientY +
+                            ")";
+                        break;
+                    case 'touchmove':
+                        output.innerHTML = "Touch moved (" + event.changedTouches[0].clientX + "," + event.changedTouches[0]
+                            .clientY +
+                            ")";
+                        //阻止默认行为
+                        // EventUtil.preventDefault(event);
+                        break;
+                }
+            }
+        }
+        EventUtil.addHandler(document, 'touchstart', handleTouchEvent);
+        EventUtil.addHandler(document, 'touchend', handleTouchEvent);
+        EventUtil.addHandler(document, 'touchmove', handleTouchEvent);
+        EventUtil.addHandler(document, 'click', () => {
+            span[1].innerHTML = 'click事件:' + (new Date().getTime());
+        });
+    </script>
+    
+    </body></html>

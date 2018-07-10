@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let httpStr =
+            "https://www.baidu.com/s?wd=hello&rsv_spt=1&rsv_iqid=0xc5775bec00007bb3&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=7&rsv_sug1=3&rsv_sug7=100";
+
+        // window.location=httpStr;
+        // window.location=window.location.href+'?w=1&q=2&name=%E5%90%B4%E5%B0%8F%E7%BA%A2&hah='
+
+        function get() {
+            let qs = location.search.length > 0 ? location.search.substring(1) : "";
+            let items = qs.length ? qs.split('&') : [];
+            let arg = {};
+            for (let item of items) {
+                item = item.split('=');
+                let name = decodeURIComponent(item[0]);
+                let value = decodeURIComponent(item[1]);
+
+                if (name.length) {
+                    arg[name] = value;
+                }
+            }
+            return arg;
+        }
+        console.log(get());
+    </script>
+</body>
+
+</html>

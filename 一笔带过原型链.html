@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原型</title>
+</head>
+
+<body>
+    <script>
+        function Person(name) {
+            this.name = name;
+            this.hi = function () {
+                console.log('你好');
+            }
+        }
+
+        function Student(age) {
+            this.age = age;
+        }
+        Student.prototype = new Person('张三');
+        Student.prototype.stuHi = function () {
+            console.log('学生打招呼')
+        }
+
+        function hello() {}
+        hello.prototype = new Student(19);
+        hello.prototype.hello = function () {
+            console.log('hello')
+        }
+        // let stu = new Student(15);
+        // console.log(stu.hi())
+        // stu.stuHi();
+
+        let he = new hello()
+        he.hello();
+        he.hi();
+        he.stuHi();
+        console.log(he.age);
+        console.log(he.name);
+
+        console.log(hello.hasOwnProperty('name'))
+        // // console.dir(Object)
+        // console.error(111)
+        // let res = Object.getOwnPropertyDescriptor(Object, 'name');
+        // console.log(Object.name)
+        // console.log(res.configurable = false)
+        // // console.log(res.writable = true)
+        // console.log(res)
+        // console.log(res.value = 'wxh');
+        // console.log(Object.name)
+    </script>
+</body>
+
+</html>
