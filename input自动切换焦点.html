@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自动切换焦点</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            height: 30px;
+            width: 350px;
+            margin: 2px 5px;
+            border-radius: 5%;
+            border: 1px solid pink;
+            text-indent: .2rem;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="">
+        <input type="text" name="name" id="" placeholder="姓名" maxlength="4">
+        <br>
+        <input type="text" name="tel" id="" placeholder="电话号码" maxlength="11">
+        <br>
+        <input type="text" name="email" id="" placeholder="邮箱" maxlength="16">
+        <br>
+    </form>
+</body>
+<script src="./EventUtil对象增强.js"></script>
+<script>
+    (function () {
+        function tabForward(event) {
+            var target = EventUtil.getTargt(event);
+            console.log(target.maxLength)
+            if ( target.value.length == target.maxLength ) {
+                var form = target.form;
+                console.warn(form.elements) //输入框元素
+                for (var i = 0, len = form.elements.length; i < len; i++) {
+                    if (form.elements[i + 1]) {
+                        if (form.elements[i + 1]) {
+                            form.elements[i + 1].focus();
+                        }
+                    }
+                }
+            }
+        }
+
+        var inputList=document.querySelectorAll('input');
+        for(let key of inputList){
+            EventUtil.addHandler(key,'keyup',tabForward)
+        }
+        
+        //  EventUtil.addHandler(inputList[0],'keyup',tabForward)
+        //  EventUtil.addHandler(inputList[1],'keyup',tabForward)
+        //  EventUtil.addHandler(inputList[2],'keyup',tabForward)
+    }());
+</script>
+
+</html>
