@@ -14,8 +14,8 @@
 
         select {
             display: block;
-            width: 50px;
-            height: 55px;
+            width: 250px;
+            height: 100px;
             margin: 100px auto;
         }
     </style>
@@ -23,18 +23,45 @@
 
 <body>
     <select name="wook" id="" multiple size="4">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
+        <option value="1">1111</option>
+        <option value="2">2222</option>
+        <option value="3">3333</option>
+        <option value="4">4444</option>
+        <option value="5">5555</option>
+        <option value="6">6666</option>
     </select>
+    <button>添加</button>
+    <button>移除</button>
 </body>
 <script>
     (function () {
-        const node =document.querySelector('select')
-        console.dir(node);
+        const node = document.querySelector('select')
+        // console.dir(node);
+        for (let item of node) {
+            console.dir(item)
+            item.onclick = function () {
+                console.log('node.value:', node.value)
+                console.warn('this.value:', this.value)
+                console.log('node.selectedIndex:', node.selectedIndex)
+            }
+        };
+
+
+        const btn = document.querySelectorAll('button');
+        btn[0].addEventListener('click', () => {
+            const opt = new Option('hello', +node.options[node.options.length - 1].value + 1);
+            node.add(opt, undefined);
+            // 第一个参数是optiom 元素 ,第二个要插入到的指定位置之前
+            //考虑兼容性的话 第二个参数不填 就可以追加了
+        }, false)
+
+
+        btn[1].addEventListener('click', () => {
+            // node.removeChild(node.options[0]);
+            // node.remove(0);
+            node.options[0]=null;
+            //多种删除的方法
+        }, false)
     }());
 </script>
 
