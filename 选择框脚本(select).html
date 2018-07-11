@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>选择框脚本</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        select {
+            display: block;
+            width: 50px;
+            height: 55px;
+            margin: 100px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <select name="wook" id="" multiple size="4">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+    </select>
+</body>
+<script>
+    (function () {
+        const node =document.querySelector('select')
+        console.dir(node);
+    }());
+</script>
+
+</html>
