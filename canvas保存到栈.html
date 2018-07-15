@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas-save</title>
+    <style>
+        html,
+        body {
+            /* background-color: #eee; */
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas {
+            border: 1px solid hsl(50, 100%, 50%);
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="500" height="500"></canvas>
+</body>
+<script>
+
+    const ctx = document.querySelector('canvas').getContext('2d');
+
+    //绘制阴影
+    ctx.shadowOffsetX = 10; //x偏移
+    ctx.shadowOffsetY = 10; //y偏移
+    ctx.shadowColor = 'pink' //颜色
+    ctx.shadowBlur = 10; //模糊度
+
+
+
+    ctx.fillStyle = '#f00';
+    ctx.save(); //保存状态
+    ctx.fillStyle = '#0f0'; 
+    ctx.translate(100, 100); 
+    ctx.save(); //保存
+
+    ctx.fillStyle = '#00f';
+    ctx.fillRect(0, 0, 200, 200);
+    ctx.restore();
+    ctx.fillRect(10, 10, 200, 200);
+    ctx.restore();
+    ctx.fillRect(0, 0, 100, 100);
+</script>
+
+</html>
