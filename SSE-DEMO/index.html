@@ -12,14 +12,19 @@
       padding: 0;
     }
 
+    body {
+      padding: 5% 0;
+      background-color: hsl(189, 100%, 90%)
+    }
+
     div {
       width: 40%;
-      background-color: #eee;
       margin: 0 auto;
       padding: 5px;
+      background-color: rgba(255, 255, 255, .6);
       border-radius: 5px;
       overflow: hidden;
-      border: 1px green solid;
+      border: 2px green solid;
     }
 
     div p {
@@ -56,14 +61,22 @@
       var p = document.createElement('p');
       p.appendChild(document.createTextNode(e.data));
       div.appendChild(p);
-      document.body.scrollTop = document.body.scrollHeight;
+
+
+
+      //文档
+      //https://www.jb51.net/article/93425.htm
+      //所以问题就在于如何控制DIV的滚动条。但同样的代码拿到我这里却完全失效，又仔细查了下资料说XHTML标准下scrollTop的值恒为0，解决办法是使用 document.documentElement.scrollTop代替document.body.scrollTop，
+
+      //到底部
+      document.body.scrollTop = document.body.offsetHeight //ssafair 可用       opera chrome firefox 不可用
+      document.documentElement.scrollTop = document.body.offsetHeight // opera chrome firefox 可用
     };
 
   } else {
     p.appendChild(document.createTextNode('你的浏览器不支持'));
     div.appendChild(p)
   }
-
 </script>
 
 </html>
