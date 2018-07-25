@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>类demo</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            display: flex;
+            background-color: pink;
+            border-radius: 10px;
+            color: red;
+            top: 0;
+            justify-content: center;
+            align-items: center;
+            cursor: move;
+        }
+
+        .box:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body id="body1">
+    <div id="div1" class="box left">
+        <p>one</p>
+    </div>
+    <div id="div2" class="box right">
+        <p>two</p>
+    </div>
+</body>
+<script>
+    class Drag {
+        constructor(id) {
+            //获取元素
+            this.elDiv = document.querySelector(id);
+            this.x = 0;
+            this.y = 0;
+            //初始化
+            this.init();
+        }
+        init() {
+            this.elDiv.onmouseover = function () {
+                this.style['z-index'] = 1;
+            }
+            this.elDiv.onmouseout = function () {
+                this.style['z-index'] = 0;
+            }
+            this.elDiv.onmousedown = function (ev) {
+                this.x = ev.clientX - this.elDiv.offsetLeft;
+                this.y = ev.clientY - this.elDiv.offsetTop;
+                document.onmousemove = this.fnMove.bind(this);
+                document.onmouseup = this.fnUp.bind(this);
+                return false;
+            }.bind(this)
+        }
+        fnMove(ev) {
+            this.elDiv.style.left = ev.clientX - this.x + 'px';
+            this.elDiv.style.top = ev.clientY - this.y + 'px';
+        }
+        fnUp(ev) {
+            document.onmousemove = null;
+            this.elDiv.style['z-index'] = 0;
+            document.onmouseup = null;
+        }
+    }
+
+
+    //继承
+    class limitDrag extends Drag {
+        fnMove(ev) {
+            super.fnMove(ev);
+            let elLeft = this.elDiv.offsetLeft;
+            let elTop = this.elDiv.offsetTop;
+            if (elLeft < 0) this.elDiv.style.left = 0;
+            if (elTop < 0) this.elDiv.style.top = 0;
+            if (elLeft > window.innerWidth - this.elDiv.offsetWidth) {
+                this.elDiv.style.left = window.innerWidth - this.elDiv.offsetWidth + 'px';
+            }
+            if (elTop > window.innerHeight - this.elDiv.offsetHeight) {
+                this.elDiv.style.top = window.innerHeight - this.elDiv.offsetHeight + 'px';
+            }
+        }
+
+    }
+    new Drag('#div1');
+    new limitDrag('#div2')
+</script>
+
+</html>
