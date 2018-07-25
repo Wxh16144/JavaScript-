@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自定义事件</title>
+</head>
+
+<body>
+    <h1>请查看控制台</h1>
+</body>
+<script>
+    function EventTarget() {
+        if (this instanceof EventTarget) {
+            this.handlers = {};
+        } else {
+            return new EventTarget();
+        }
+    }
+    EventTarget.prototype = {
+        constructor: EventTarget,
+        addHandler: function (type, handler) {
+            if (typeof this.handlers[type] === 'undefined') {
+                this.handlers[type] = [];
+            }
+            this.handlers[type].push(handler);
+            console.warn('addHandler:this.handlers', this.handlers);
+
+        },
+        fire: function (event) {
+            if (!event.target) {
+                event.target = this;
+            }
+            if (this.handlers[event.type] instanceof Array) {
+                var handlers = this.handlers[event.type];
+                for (var i = 0, len = handlers.length; i < len; i++) {
+                    console.dir(handlers[i]); //注册触发的事件
+                    handlers[i](event)
+                }
+            }
+        },
+        removeHandler: function (type, handler) {
+            if (this.handlers[type] instanceof Array) {
+                var handlers = this.handlers[type];
+                for (var i = 0, len = handlers.length; i < len; i++) {
+                    if (handlers[i] === handler) {
+                        break;
+                    }
+                }
+                handlers.splice(i, 1);
+            }
+        }
+    }
+
+
+
+
+
+    function handleMessage(event) {
+        alert('Message recaived:' + event.message)
+    }
+
+    function hi(event) {
+        console.warn('hi方法的:', event);
+        if (confirm(event.message)) {
+            //删除handleMessage事件;
+            event.target.removeHandler('message', handleMessage)
+        }
+    }
+    //调用前面的message方法
+    function hello(event) {
+        console.warn('hello方法的:', event);
+        event.target.fire({
+            type: event.status,
+            message: '我的hello事件触发过来的(' + event.status + ')事件'
+        })
+        //因为前面hi事件方法删除了message事件 这里测试还能否继续触发事件
+        event.target.fire({
+            type: 'message',
+            message: '我测试前面hi事件有没有把我删除了'
+        })
+    }
+
+    var target = new EventTarget();
+    //注册事件
+    target.addHandler('message', handleMessage);
+    target.addHandler('message1', handleMessage);
+    target.addHandler('hello', hello);
+    target.addHandler('hi', hi);
+    //触发常规的message事件
+    target.fire({
+        type: 'message',
+        message: '我是第一个触发message事件'
+    })
+    //触发删除message事件的hi事件
+    target.fire({
+        type: 'hi',
+        message: '确定要删除message事件吗?',
+        this: this
+    })
+    //因为前面hi事件方法询问是否删除message事件 这里测试还能否继续触发事件
+    target.fire({
+        type: 'message',
+        message: '我测试前面hi事件有没有把我删除了'
+    })
+
+    //触发带有触发message1事件的hello事件
+    target.fire({
+        type: 'hello',
+        message: '我触发了hello事件',
+        status: 'hi' //这是我要触发的事件名称
+    })
+
+
+    console.dir(target);
+</script>
+
+</html>
