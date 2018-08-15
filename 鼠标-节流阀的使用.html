@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>鼠标-节流阀的使用</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 80px;
+            height: 80px;
+            background-color: red;
+            border-radius: 5px;
+            box-shadow: 0 0 10px black;
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+<script>
+    const processor = {
+        timeoutId: null,
+        div: document.querySelector('div'),
+        performProcessing: function (e) {
+            let {
+                offsetX: x,
+                offsetY: y
+            } = e;
+            this.div.style.top = `${y}px`;
+            this.div.style.left = `${x}px`;
+            console.log('X:%s,Y:%s', x, y);
+            console.warn(this);
+        },
+        process: function (e) {
+            clearTimeout(this.timeoutId);
+            this.timeoutId = setTimeout(function () {
+                this.performProcessing(e)
+            }.bind(this), 100)
+        }
+    }
+    window.addEventListener('mousemove', processor.process.bind(processor), false)
+</script>
+
+</html>

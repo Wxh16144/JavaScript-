@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿<!DOCTYPE html>
+=======
+<!DOCTYPE html>
+>>>>>>> b705d2b604b181ad8bc01c7e900fdad430c72f69
 <html lang="en">
 
 <head>
@@ -12,6 +16,7 @@
       padding: 0;
     }
 
+<<<<<<< HEAD
     body {
       padding: 5% 0;
       background-color: hsl(189, 100%, 90%)
@@ -25,6 +30,16 @@
       border-radius: 5px;
       overflow: hidden;
       border: 2px green solid;
+=======
+    div {
+      width: 40%;
+      background-color: #eee;
+      margin: 0 auto;
+      padding: 5px;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1px green solid;
+>>>>>>> b705d2b604b181ad8bc01c7e900fdad430c72f69
     }
 
     div p {
@@ -61,6 +76,7 @@
       var p = document.createElement('p');
       p.appendChild(document.createTextNode(e.data));
       div.appendChild(p);
+<<<<<<< HEAD
 
 
 
@@ -71,12 +87,19 @@
       //到底部
       document.body.scrollTop = document.body.offsetHeight //ssafair 可用       opera chrome firefox 不可用
       document.documentElement.scrollTop = document.body.offsetHeight // opera chrome firefox 可用
+=======
+      document.body.scrollTop = document.body.scrollHeight;
+>>>>>>> b705d2b604b181ad8bc01c7e900fdad430c72f69
     };
 
   } else {
     p.appendChild(document.createTextNode('你的浏览器不支持'));
     div.appendChild(p)
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> b705d2b604b181ad8bc01c7e900fdad430c72f69
 </script>
 
 </html>
