@@ -16,19 +16,14 @@ http.createServer(function (req, res) {
     })
 
   }
-<<<<<<< HEAD
 
   if (fileName === "./stream") {
     // console.log('用户连接')
-=======
-  if (fileName === "./stream") {
->>>>>>> b705d2b604b181ad8bc01c7e900fdad430c72f69
     res.writeHead(200, {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
       "Connection": "keep-alive"
     });
-<<<<<<< HEAD
 
     res.write("retry: 10000\n");
     res.write("event: connecttime\n");
@@ -44,19 +39,6 @@ http.createServer(function (req, res) {
     req.connection.addListener("close", function () {
       clearInterval(interval);
       // console.log('用户取消l')
-=======
-    res.write("retry: 10000\n");
-    res.write("event: connecttime\n");
-    res.write("data: " + Date.now() + "\n\n");
-    res.write("data: " + Date.now() + "\n\n");
-
-    interval = setInterval(function () {
-      res.write("data: " + Date.now() + "\n\n");
-    }, 100);
-
-    req.connection.addListener("close", function () {
-      clearInterval(interval);
->>>>>>> b705d2b604b181ad8bc01c7e900fdad430c72f69
     }, false);
   }
 }).listen(8080, "127.0.0.1");
