@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    // https://mp.weixin.qq.com/s/rEnudO1Z6pxYJlarOEtIeQ
+    // const add = (a, b) => a + b
+    // console.log(add(5, 1))
+
+    // const a = add(2, 5)
+    // const b = add(a, 8)
+    // const c = add(b, 10)
+    // console.warn(c)
+
+    // const curryAdd = a => b => a + b
+    // const inc = curryAdd(2)
+    // console.log(inc)
+    // const x = inc(5)
+    // const y = inc(x)
+    // const z = inc(y)
+    // console.log(x, y, z)
+
+    const map = f => arr => arr.map(f)
+    const f = n => a => {
+      alert(Math.pow(n, a))
+    }
+    const doubleAll = map(f)
+    const doubled = doubleAll([1, 2, 3])
+    doubled.forEach(element => {
+      ;/(Function)/.test(Object.prototype.toString.call(element)) && element(2)
+      // console.log(1)
+    })
+  </script>
+</html>

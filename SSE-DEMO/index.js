@@ -16,23 +16,29 @@ http.createServer(function (req, res) {
     })
 
   }
+
   if (fileName === "./stream") {
+    // console.log('用户连接')
     res.writeHead(200, {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
       "Connection": "keep-alive"
     });
+
     res.write("retry: 10000\n");
     res.write("event: connecttime\n");
     res.write("data: " + Date.now() + "\n\n");
-    res.write("data: " + Date.now() + "\n\n");
+    //res.write("data: " + Date.now() + "\n\n");
 
+    var s = 0;
     interval = setInterval(function () {
       res.write("data: " + Date.now() + "\n\n");
-    }, 100);
+      res.write('id:' + s++ + '\n')
+    }, 1000);
 
     req.connection.addListener("close", function () {
       clearInterval(interval);
+      // console.log('用户取消l')
     }, false);
   }
 }).listen(8080, "127.0.0.1");
