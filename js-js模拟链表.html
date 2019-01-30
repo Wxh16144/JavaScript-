@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>js-js模拟链表</title>
+  </head>
+  <body></body>
+  <script>
+    window.performance.mark('start')
+    // 这个是要删除的数据索引
+    const oldarr = new Set(
+      Array(100)
+        .fill()
+        .map(item => Math.floor(Math.random() * 500))
+    )
+    // 新数据
+    var arr = Array(1000)
+      .fill()
+      .map(item => Math.random())
+    // 删除
+    oldarr.forEach((item, index, set) => {
+      arr.splice(index, 1, set)
+    })
+    // console.error(oldarr)
+
+    // console.log(arr)
+
+    window.performance.mark('end')
+    window.performance.measure('mytime', 'start', 'end')
+    var mytime = window.performance.getEntriesByName('mytime')
+    // console.warn(mytime[0]['duration'])
+
+    //创建链表
+    class CreateLinkNode {
+      constructor(data, pre, next) {
+        this.data = data
+        this.preNode = pre
+        if (this.preNode) {
+          pre.nextNode = this
+        }
+        this.nextNode = next
+      }
+      //打印链表
+      print() {
+        if (this.nextNode) {
+          return this.data.name + this.nextNode.print()
+        } else {
+          return this.data.name
+        }
+      }
+
+      //从某一个节点的后面开始插入一个节点
+      insertNode(node) {
+        if (this.nextNode && this.nextNode.preNode) {
+          this.nextNode.preNode = node
+        }
+        node.nextNode = this.nextNode
+        node.preNode = this
+        this.nextNode = node
+      }
+      //删除某一个节点
+      removeNode() {
+        this.nextNode.preNode = this.preNode
+        this.preNode.nextNode = this.nextNode
+      }
+      //反序链表
+      revertNode() {
+        var tmp = null //{nextNode: null, preNode: null};
+        function revert() {
+          if (!this.nextNode) {
+            this.preNode = null
+            this.nextNode = tmp
+            return this
+          } else {
+            this.preNode = this.nextNode
+            this.nextNode = tmp
+            tmp = this
+            return revert.call(this.preNode)
+          }
+        }
+        return revert.call(this)
+      }
+    }
+    var ln1 = new CreateLinkNode({ name: '1' }, null, null)
+    var ln2 = new CreateLinkNode({ name: '2' }, ln1, null)
+    var ln3 = new CreateLinkNode({ name: '3' }, ln2, null)
+    var ln4 = new CreateLinkNode({ name: '4' }, ln3, null)
+    var ln5 = new CreateLinkNode({ name: '5' }, null, null)
+    var lHead = ln1
+    ln2.insertNode(ln5)
+    // console.log(ln1)
+    // ln1.print()
+
+    // console.log( new CreateLinkNode)
+  </script>
+</html>
