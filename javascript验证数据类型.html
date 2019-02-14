@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+
+</body>
+<script type="text/javascript">
+  //isString
+  //isNumber
+  //isDate
+  //isError
+  //isRegExp
+  //直接利用和数据类型来判断
+  Array(1).forEach.call(['String', 'Number', 'Date', 'Error', 'RegExp'], name => {
+    this['is' + name] = obj => {
+      return toString.call(obj) === '[object ' + name + ']';
+    };
+  });
+  //isBoolean
+  //true和false需要考虑在内
+  Object.prototype.isBoolean = function (obj) {
+    return obj === true || obj === false || toString.call(obj) === '[object Boolean]';
+  };
+  //isNull
+  //未找到所指向对象
+  Object.prototype.isNull = function (obj) {
+    return obj === null;
+  };
+
+  //isUndefined
+  //定义了但是未赋值
+  Object.prototype.isUndefined = function (obj) {
+    return obj === void undefined;
+  };
+  //isObject
+  //函数和数组都是对象
+  Object.prototype.isObject = function (obj) {
+    var type = typeof obj;
+    return type === 'function' || type === 'object' && !!obj;
+  };
+
+  //test
+  //isString
+  var str = "iamstring";
+  var a = isString(str);
+  console.log(a);//true
+
+  //isNumber
+  var b = isNumber(a);
+  console.log(b);//false
+
+  //isNumber
+  var num = 4;
+  var c = isNumber(num);
+  console.log(c);//true
+
+  //isRegExp
+  var reg = /^[1-9]/;
+  var d = isRegExp(reg);
+  console.log(d);//true
+
+  //isDate
+  var date = new Date();
+  var e = isDate(date);
+  console.log(e);//true
+
+  //isBoolean
+  var bool = false;
+  var f = isBoolean(bool);
+  console.log(f);//true
+
+  //isNull
+  var nul = document.getElementById("div02");
+  var g = isNull(nul);
+  console.log(g);//true
+
+  //isUndefined
+  var undef;
+  var h = isUndefined(undef);
+  console.log(h);//true
+
+  //isObject
+  var obj = { "1": "1", "2": "2" };
+  var i = isObject(obj);
+  console.log(i);//true
+
+
+</script>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        /* backdrop-filter: blur(50px); */
+        font-family: myFirstFont;
+      }
+      @font-face {
+        /* Inkfree */
+        font-family: myFirstFont;
+        src: url('./font/Inkfree.ttf');
+      }
+      .cover {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        top: 0;
+        left: 0;
+        filter: blur(50px);
+        z-index: 10;
+      }
+      .content {
+        position: absolute;
+        width: 70%;
+        height: 50%;
+        top: 10%;
+        left: -30%;
+        background-image: radial-gradient(cyan, transparent 60%);
+      }
+      .pink {
+        position: absolute;
+        width: 100%;
+        height: 70%;
+        top: 80%;
+        /* right: -20%; */
+        background-image: radial-gradient(pink, transparent 90%);
+      }
+      .righttop {
+        position: absolute;
+        width: 30%;
+        height: 30%;
+        top: -10%;
+        right: -15%;
+        background-image: radial-gradient(violet, transparent 70%);
+      }
+      h1 {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        text-align: center;
+        color: gray;
+        text-shadow: -2px 3px pink;
+        /* filter: blur(0.6px); */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Wu Xiaohong</h1>
+    <!-- <h1>Wxh16144</h1> -->
+    <div class="cover">
+      <div class="content"></div>
+      <div class="pink"></div>
+      <div class="righttop"></div>
+    </div>
+  </body>
+</html>
