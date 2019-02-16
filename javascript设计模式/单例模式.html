@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>单例模式</title>
+  <script src="http://wxhboy.cn/js/jquery.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul li {
+      list-style-type: none
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    li {
+      line-height: 36px;
+      font-size: 24px;
+    }
+
+    div {
+      text-transform: uppercase;
+      background: black;
+      color: white;
+      cursor: pointer;
+      border-radius: 2px;
+      padding: 2px 6px;
+      box-sizing: border-box;
+      border: 1px solid transparent;
+      transition: all .2s
+    }
+
+    div:hover {
+      background-color: transparent;
+      color: black;
+      border: 1px solid black
+    }
+  </style>
+</head>
+
+<body>
+  <div id="jq">借助JQ</div>
+  <ul id="list"></ul>
+  <div id="Single">Single</div>
+</body>
+<script>
+  const getSingle = (fn = () => {
+    throw new Error('arguments is not function')
+  }) => {
+    let res;
+    return () => {
+      return res || (res = fn.apply(this, arguments));
+    }
+  }
+
+  const jqBindEven = () => {
+    $('#jq').one('click', () => {
+      alert('jqclick')
+    })
+  }
+  const generate = (html = 'Hello Wolrd') => {
+    const liel = document.createElement('li')
+    liel.innerHTML = html
+    document.querySelector('#list').appendChild(liel)
+  }
+  // 借助jquery
+  const render = function () {
+    generate('Hello')
+    console.log('jq开始渲染列表')
+    jqBindEven()
+  };
+  render()
+  render()
+  render()
+  // 借助jquery
+
+  // Single
+  const SingleBindEven = () => {
+    document.getElementById('Single').onclick = function () {
+      alert('Singleclick');
+    }
+    return true;
+  }
+  const myrender = function () {
+    generate('World')
+    console.warn('Single开始渲染列表')
+    SingleBindEven()
+  };
+  myrender()
+  myrender()
+  myrender()
+  // Single
+</script>
+
+</html>
