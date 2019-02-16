@@ -48,48 +48,83 @@
   //isString
   var str = "iamstring";
   var a = isString(str);
-  console.log(a);//true
+  console.log(a); //true
 
   //isNumber
   var b = isNumber(a);
-  console.log(b);//false
+  console.log(b); //false
 
   //isNumber
   var num = 4;
   var c = isNumber(num);
-  console.log(c);//true
+  console.log(c); //true
 
   //isRegExp
   var reg = /^[1-9]/;
   var d = isRegExp(reg);
-  console.log(d);//true
+  console.log(d); //true
 
   //isDate
   var date = new Date();
   var e = isDate(date);
-  console.log(e);//true
+  console.log(e); //true
 
   //isBoolean
   var bool = false;
   var f = isBoolean(bool);
-  console.log(f);//true
+  console.log(f); //true
 
   //isNull
   var nul = document.getElementById("div02");
   var g = isNull(nul);
-  console.log(g);//true
+  console.log(g); //true
 
   //isUndefined
   var undef;
   var h = isUndefined(undef);
-  console.log(h);//true
+  console.log(h); //true
 
   //isObject
-  var obj = { "1": "1", "2": "2" };
+  var obj = {
+    "1": "1",
+    "2": "2"
+  };
   var i = isObject(obj);
-  console.log(i);//true
+  console.log(i); //true
 
 
+  const rules = [
+    'Number',
+    'Array',
+    'Object',
+    'String',
+    'Undefined',
+    'Null',
+    'Date',
+    'Function',
+    'RegExp',
+    'Boolean',
+    'Set',
+    'Map',
+    'WeakMap',
+    'WeakSet'
+  ]
+  let strategies = {}
+  let mystrategies = {}
+  // rules.forEach(rule => {
+  //   strategies[`is${rule}`] = value => {
+  //     const res = Object.prototype.toString.call(value)
+  //     const reg = new RegExp(rule)
+  //     return reg.test(res)
+  //   }
+  // })
+  Array(1).forEach.call(rules, rule => {
+    mystrategies[`is${rule}`] = obj => {
+      return toString.call(obj) === '[object ' + rule + ']';
+    };
+  });
+  // console.dir(strategies)
+  console.dir(mystrategies)
 </script>
 
 </html>
